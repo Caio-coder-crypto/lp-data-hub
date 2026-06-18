@@ -43,9 +43,11 @@
   .btn svg{width:18px;height:18px}
   header.nav{position:sticky;top:0;z-index:50;backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);background:rgba(5,11,22,.72);border-bottom:1px solid var(--line)}
   .nav-in{display:flex;align-items:center;justify-content:space-between;height:68px}
-  .brand{display:flex;align-items:center;gap:11px}
-  .brand-logo{height:40px;width:auto;display:block;flex:none}
-  @media(max-width:480px){.brand-logo{height:34px}}
+  .brand{display:flex;align-items:center;gap:10px}
+  .brand-sym{width:36px;height:36px;display:block;flex:none}
+  .brand-wm{font-family:'Sora',sans-serif;font-weight:700;font-size:19px;color:var(--txt);line-height:1.05;letter-spacing:-.02em}
+  .brand-wm small{display:block;font-family:'Space Grotesk',monospace;font-size:8px;letter-spacing:.2em;color:var(--grn2);font-weight:600;text-transform:uppercase;margin-top:2px}
+  @media(max-width:480px){.brand-sym{width:32px;height:32px}.brand-wm{font-size:17px}}
   .nav-links{display:flex;align-items:center;gap:28px}
   .nav-links a.lnk{font-size:14px;color:var(--mut);font-weight:500;transition:color .15s}
   .nav-links a.lnk:hover{color:var(--txt)}
@@ -169,7 +171,7 @@
 
 <header class="nav">
   <div class="wrap nav-in">
-    <a href="#hero" class="brand" aria-label="DataHub — Revenue Intelligence"><img class="brand-logo" src="assets/datahub-logo-dark.png" alt="DataHub — Revenue Intelligence" /></a>
+    <a href="#hero" class="brand" aria-label="DataHub — Revenue Intelligence"><img class="brand-sym" src="assets/datahub-symbol.png" alt="" /><span class="brand-wm">Data<span style="color:var(--grn2)">Hub</span><small>Revenue Intelligence</small></span></a>
     <nav class="nav-links">
       <a class="lnk" href="#problema">O problema</a>
       <a class="lnk" href="#implantacao">O segredo</a>
@@ -425,7 +427,7 @@
 <footer>
   <div class="wrap foot-in">
     <div>
-      <a href="#hero" class="brand" style="margin-bottom:14px"><img class="brand-logo" src="assets/datahub-logo-dark.png" alt="DataHub" /></a>
+      <a href="#hero" class="brand" style="margin-bottom:14px"><img class="brand-sym" src="assets/datahub-symbol.png" alt="" /><span class="brand-wm">Data<span style="color:var(--grn2)">Hub</span><small>Revenue Intelligence</small></span></a>
       <p class="foot-copy" style="max-width:320px;margin-top:6px">Implantação de CRM + BI em tempo real. A gente limpa a base antes de te entregar os números.</p>
     </div>
     <div class="foot-contact">
