@@ -129,6 +129,8 @@
   .impl-stat .big{font-family:'Clash Display',sans-serif;font-size:clamp(48px,9vw,72px);font-weight:600;line-height:1;color:var(--grn2);flex:none}
   .impl-stat .lab{font-size:15px;color:var(--mut);line-height:1.6}
   .impl-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+  .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+  .cta-center{display:flex;justify-content:center;margin-top:26px}
   .impl-point{background:linear-gradient(180deg,var(--surface2),var(--surface));border:1px solid var(--line);border-radius:var(--rad);padding:24px}
   .impl-point .num{width:36px;height:36px;border-radius:10px;background:rgba(0,193,106,.12);border:1px solid rgba(0,193,106,.3);color:var(--grn2);font-family:'Space Grotesk',monospace;font-weight:700;font-size:16px;display:flex;align-items:center;justify-content:center;margin-bottom:14px}
   .impl-point h3{font-size:16px;font-weight:600;margin-bottom:7px}
@@ -206,7 +208,7 @@
   @media(max-width:760px){
     .nav-links{display:none}.burger{display:flex}
     .nav-cta .btn .nav-lbl{display:none}.nav-cta .btn{padding:11px 13px}
-    .prob-grid,.feat-grid,.impl-grid,.print-grid,.price-grid{grid-template-columns:1fr}
+    .prob-grid,.feat-grid,.impl-grid,.print-grid,.price-grid,.steps{grid-template-columns:1fr}
     .plan.feat-plan{transform:none}
     section.sec{padding:58px 0}
     .impl-stat{flex-direction:column;align-items:flex-start;gap:14px}
@@ -246,12 +248,12 @@
       <a class="lnk" href="#problema">O problema</a>
       <a class="lnk" href="#implantacao">O método</a>
       <a class="lnk" href="#solucao">Recursos</a>
-      <a class="lnk" href="#planos">Planos</a>
+      <a class="lnk" href="#planos">Como começa</a>
     </nav>
     <div class="nav-cta">
       <a class="btn btn-primary wa" data-msg="Olá! Quero o diagnóstico gratuito do DataHub pra minha operação." href="https://wa.me/5585988842142">
         <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M.057 24l1.687-6.163a11.867 11.867 0 01-1.587-5.946C.16 5.335 5.495 0 12.05 0a11.82 11.82 0 018.413 3.488 11.82 11.82 0 013.48 8.414c-.003 6.557-5.338 11.892-11.893 11.892a11.9 11.9 0 01-5.688-1.448L.057 24zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884a9.86 9.86 0 001.51 5.26l-.999 3.648 3.689-.967zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.095 3.2 5.076 4.487.71.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
-        <span class="nav-lbl">Pedir diagnóstico</span>
+        <span class="nav-lbl">Agendar reunião</span>
       </a>
     </div>
     <button class="burger" id="burger" aria-label="Abrir menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button>
@@ -261,7 +263,7 @@
     <a class="lnk" href="#problema">O problema</a>
     <a class="lnk" href="#implantacao">O método</a>
     <a class="lnk" href="#solucao">Recursos</a>
-    <a class="lnk" href="#planos">Planos</a>
+    <a class="lnk" href="#planos">Como começa</a>
   </div></div>
 </header>
 
@@ -271,9 +273,9 @@
     <h1>Descubra de onde <span class="c-rev">vem</span> sua receita.<br>E por onde ela <span class="c-leak">vaza</span>.</h1>
     <p class="lead">O DataHub organiza e limpa o seu CRM e liga um painel de receita ao vivo em cima dele. Você passa a saber, com número confiável, de onde vem cada real e por onde ele está escapando.</p>
     <div class="hero-cta">
-      <a class="btn btn-primary wa" data-msg="Olá! Quero descobrir onde minha operação está perdendo dinheiro com o DataHub." href="https://wa.me/5585988842142">
+      <a class="btn btn-primary wa" data-msg="Olá! Quero agendar o diagnóstico gratuito do DataHub pra minha operação." href="https://wa.me/5585988842142">
         <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M.057 24l1.687-6.163a11.867 11.867 0 01-1.587-5.946C.16 5.335 5.495 0 12.05 0a11.82 11.82 0 018.413 3.488 11.82 11.82 0 013.48 8.414c-.003 6.557-5.338 11.892-11.893 11.892a11.9 11.9 0 01-5.688-1.448L.057 24zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884a9.86 9.86 0 001.51 5.26l-.999 3.648 3.689-.967zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.095 3.2 5.076 4.487.71.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
-        Descobrir onde perco dinheiro
+        Agendar diagnóstico gratuito
       </a>
       <a class="btn btn-ghost wa" data-msg="Olá! Quero ver um exemplo do painel do DataHub." href="https://wa.me/5585988842142">Ver um exemplo do painel</a>
     </div>
@@ -400,70 +402,33 @@
 
 <section class="sec wrap" id="planos">
   <div class="sec-head reveal">
-    <span class="eyebrow">Planos e investimento</span>
-    <h2>Preço fixo por empresa. Usuários ilimitados.</h2>
-    <p>Você não paga por vendedor: coloque o time inteiro pelo mesmo valor. Todo plano inclui o BI em tempo real e a estruturação essencial do CRM. O que muda é a profundidade da implantação, e no anual ela sai de graça.</p>
+    <span class="eyebrow">Como começa</span>
+    <h2>Toda parceria começa com um diagnóstico gratuito</h2>
+    <p>Não tem carrinho nem plano de prateleira. Cada operação tem um tamanho e um nível de bagunça diferente. Então a gente primeiro olha a sua, sem custo e sem compromisso, e só depois desenha o que faz sentido pro seu caso.</p>
   </div>
-  <div class="price-grid">
-    <div class="plan reveal">
-      <div class="pname">Mensal</div>
-      <div class="psub">Para começar com flexibilidade</div>
-      <div class="price"><span class="cur">R$</span><span class="val">597</span><span class="per">/mês</span></div>
-      <div class="psub" style="margin-top:8px">Cobrado todo mês</div>
-      <ul>
-        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg>BI em tempo real completo</li>
-        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg>Estruturação essencial do CRM</li>
-        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg>Usuários ilimitados</li>
-        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg>Implantação profunda: <b>condição especial</b></li>
-      </ul>
-      <a class="btn btn-ghost wa" data-msg="Olá! Tenho interesse no plano Mensal do DataHub. Podemos conversar?" href="https://wa.me/5585988842142">Começar pelo mensal</a>
-    </div>
-    <div class="plan feat-plan reveal">
-      <span class="tag">MELHOR VALOR</span>
-      <div class="pname">Anual</div>
-      <div class="psub">Menor custo · cobrança recorrente</div>
-      <div class="price"><span class="cur">R$</span><span class="val">497</span><span class="per">/mês</span></div>
-      <div class="psub" style="margin-top:8px">R$ 5.964/ano · renova automático</div>
-      <span class="save">Implantação profunda GRÁTIS + ~17% off</span>
-      <ul>
-        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg><b>Implantação profunda do CRM grátis</b></li>
-        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg>Engenharia + higienização de dados inclusas</li>
-        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg>BI em tempo real + usuários ilimitados</li>
-        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg>Prioridade no suporte</li>
-      </ul>
-      <a class="btn btn-primary wa" data-msg="Olá! Tenho interesse no plano Anual do DataHub (implantação grátis). Podemos conversar?" href="https://wa.me/5585988842142">Quero o anual com implantação grátis</a>
-    </div>
-    <div class="plan reveal">
-      <div class="pname">Semestral</div>
-      <div class="psub">Profundidade sem fechar um ano</div>
-      <div class="price"><span class="cur">R$</span><span class="val">547</span><span class="per">/mês</span></div>
-      <div class="psub" style="margin-top:8px">R$ 3.282 a cada 6 meses</div>
-      <span class="save">Implantação com condição especial</span>
-      <ul>
-        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg>BI em tempo real completo</li>
-        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg>Implantação do CRM <b>já inclusa</b></li>
-        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg>Usuários ilimitados</li>
-        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg>Suporte por WhatsApp</li>
-      </ul>
-      <a class="btn btn-ghost wa" data-msg="Olá! Tenho interesse no plano Semestral do DataHub. Podemos conversar?" href="https://wa.me/5585988842142">Falar sobre o semestral</a>
-    </div>
+  <div class="steps">
+    <div class="impl-point reveal"><div class="num">1</div><h3>Você agenda no WhatsApp</h3><p>Manda uma mensagem e a gente marca um horário. A reunião é online, rápida e gratuita.</p></div>
+    <div class="impl-point reveal"><div class="num">2</div><h3>A gente faz o raio-x</h3><p>Olhamos a sua operação e os seus dados de verdade e mostramos, na hora, onde está vazando dinheiro.</p></div>
+    <div class="impl-point reveal"><div class="num">3</div><h3>Você recebe um plano sob medida</h3><p>Com o cenário na mesa, a gente propõe a implantação certa pro seu tamanho. Sem empurrar nada.</p></div>
   </div>
-  <div class="ent reveal">
-    <div><h4>Enterprise sob medida</h4><p>Para operações grandes, múltiplas unidades ou necessidades específicas de integração e governança de dados. Escopo, implantação e SLA desenhados pro seu caso.</p></div>
-    <a class="btn btn-ghost wa" data-msg="Olá! Quero conversar sobre uma proposta Enterprise do DataHub." href="https://wa.me/5585988842142">Montar um plano sob medida</a>
+  <div class="cta-center reveal">
+    <a class="btn btn-primary wa" data-msg="Olá! Quero agendar a reunião gratuita pra ver o diagnóstico da minha operação com o DataHub." href="https://wa.me/5585988842142">
+      <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M.057 24l1.687-6.163a11.867 11.867 0 01-1.587-5.946C.16 5.335 5.495 0 12.05 0a11.82 11.82 0 018.413 3.488 11.82 11.82 0 013.48 8.414c-.003 6.557-5.338 11.892-11.893 11.892a11.9 11.9 0 01-5.688-1.448L.057 24zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884a9.86 9.86 0 001.51 5.26l-.999 3.648 3.689-.967zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.095 3.2 5.076 4.487.71.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
+      Agendar minha reunião gratuita
+    </a>
   </div>
-  <div class="setup-note reveal">A implantação e o setup profundo do CRM (estruturação, padronização e higienização dos dados) entram inclusos nos planos de maior duração e saem <b>de graça no plano anual</b>. Em todos os planos, quem implanta e mantém somos nós: <b>você não configura nada sozinho</b>. Cada plano começa com uma conversa, não com um carrinho.</div>
+  <div class="setup-note reveal">A reunião é <b>gratuita e sem compromisso</b>. Mesmo que você não feche, sai sabendo os 3 pontos onde sua base está te custando dinheiro. O investimento a gente alinha na conversa, depois do diagnóstico, quando dá pra dimensionar de verdade o que a sua operação precisa.</div>
 </section>
 
 <section class="sec wrap">
   <div class="final reveal">
-    <span class="eyebrow">Raio-x da sua operação, sem compromisso</span>
+    <span class="eyebrow">Reunião gratuita, sem compromisso</span>
     <h2 style="margin-top:14px">Vamos achar o dinheiro que está escapando</h2>
     <p>Numa conversa direta a gente revisa como seus dados estão hoje e o que dá pra enxergar de receita e retorno depois da implantação. Mesmo que você não feche, sai sabendo os 3 pontos onde sua base está te custando dinheiro. Sem script de vendas. E se a sua base ainda não estiver pronta, a gente te fala antes de você pagar.</p>
     <div class="hero-cta">
       <a class="btn btn-primary wa" data-msg="Olá! Quero agendar o diagnóstico gratuito do DataHub pra minha operação." href="https://wa.me/5585988842142">
         <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M.057 24l1.687-6.163a11.867 11.867 0 01-1.587-5.946C.16 5.335 5.495 0 12.05 0a11.82 11.82 0 018.413 3.488 11.82 11.82 0 013.48 8.414c-.003 6.557-5.338 11.892-11.893 11.892a11.9 11.9 0 01-5.688-1.448L.057 24zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884a9.86 9.86 0 001.51 5.26l-.999 3.648 3.689-.967zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.095 3.2 5.076 4.487.71.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
-        Pedir meu raio-x da operação
+        Agendar minha reunião gratuita
       </a>
       <a class="btn btn-ghost wa" data-msg="Olá! Quero falar agora sobre o DataHub." href="https://wa.me/5585988842142">Falar agora no WhatsApp</a>
     </div>
