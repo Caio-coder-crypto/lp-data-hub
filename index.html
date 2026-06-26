@@ -4,61 +4,67 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>DataHub — Descubra de onde vem sua receita (e por onde ela vaza)</title>
-<meta name="description" content="Implantação completa feita pelo fundador: limpamos a base do seu CRM e ligamos um painel ao vivo de receita, ROI, ROAS, CAC e funil. Pare de decidir no escuro. Fale com o Caio e peça seu raio-x da operação — sem fidelidade no mensal." />
+<meta name="description" content="A gente estrutura e limpa a base do seu CRM e liga um painel ao vivo de receita, ROI, ROAS, CAC e funil. Pare de decidir no escuro. Peça o raio-x da sua operação." />
 <meta property="og:title" content="Descubra de onde vem sua receita — e por onde ela vaza" />
 <meta property="og:description" content="A gente limpa a base do seu CRM e liga um painel ao vivo. Você passa a saber, com número confiável, de onde vem cada real e onde ele está escapando." />
 <meta property="og:type" content="website" />
-<meta name="theme-color" content="#040A12" />
+<meta name="theme-color" content="#05080D" />
 <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png" />
 <link rel="icon" href="assets/favicon.ico" />
 <link rel="apple-touch-icon" href="assets/favicon-180.png" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
+<link rel="preconnect" href="https://api.fontshare.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
+<link href="https://api.fontshare.com/v2/css?f[]=clash-display@500,600,700&display=swap" rel="stylesheet" />
 <style>
   *{margin:0;padding:0;box-sizing:border-box}
   :root{
-    --bg:#040A12; --bg2:#06101C; --surface:#0A1828; --surface2:#0E2236;
-    --line:rgba(125,165,205,.12); --line2:rgba(130,180,220,.24);
-    --txt:#EAF2FA; --mut:#96AABF; --mut2:#5C7088;
+    --bg:#05080D; --bg2:#070D16; --surface:#0A1320; --surface2:#0E1B2B;
+    --line:rgba(125,165,205,.12); --line2:rgba(130,180,220,.22);
+    --txt:#EAF3FA; --mut:#94A8BE; --mut2:#56697E;
     --grn:#00C16A; --grn2:#43E59A; --grnd:#00935A;
-    --red:#ff8585; --redbg:rgba(255,90,90,.08); --redln:rgba(255,90,90,.2);
+    --leak:#FF7E54; --leak2:#FFB28C; --leakbg:rgba(255,126,84,.08); --leakln:rgba(255,126,84,.22);
     --rad:16px; --radlg:24px; --radsm:11px; --maxw:1140px;
     --pad:clamp(20px,5vw,24px);
   }
   html{scroll-behavior:smooth;overflow-x:clip}
   body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--txt);line-height:1.62;overflow-x:clip;-webkit-font-smoothing:antialiased}
-  /* atmosfera: aurora de receita (verde) sobre profundidade petróleo */
-  body::before{content:'';position:fixed;inset:0;z-index:-2;pointer-events:none;
+  /* atmosfera de fundo (atrás do canvas 3D) */
+  body::before{content:'';position:fixed;inset:0;z-index:-3;pointer-events:none;
     background:
-      radial-gradient(900px 520px at 84% -12%, rgba(0,193,106,.20), transparent 62%),
-      radial-gradient(760px 520px at -8% 6%, rgba(0,120,90,.12), transparent 60%),
+      radial-gradient(1000px 560px at 82% -14%, rgba(0,193,106,.16), transparent 60%),
+      radial-gradient(820px 560px at -10% 4%, rgba(255,126,84,.07), transparent 58%),
       linear-gradient(180deg, var(--bg), var(--bg2) 55%, var(--bg))}
-  /* malha de instrumento, esmaecendo do topo */
-  body::after{content:'';position:fixed;inset:0;z-index:-1;pointer-events:none;opacity:.5;
-    background-image:linear-gradient(rgba(130,180,220,.045) 1px,transparent 1px),linear-gradient(90deg,rgba(130,180,220,.045) 1px,transparent 1px);
-    background-size:64px 64px;mask-image:radial-gradient(125% 78% at 50% -8%, #000 22%, transparent 72%)}
+  body::after{content:'';position:fixed;inset:0;z-index:-2;pointer-events:none;opacity:.45;
+    background-image:linear-gradient(rgba(130,180,220,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(130,180,220,.04) 1px,transparent 1px);
+    background-size:66px 66px;mask-image:radial-gradient(125% 80% at 50% -6%, #000 20%, transparent 72%)}
+  /* canvas 3D (assinatura) — fica entre a atmosfera e o conteúdo */
+  #bg3d{position:fixed;inset:0;width:100%;height:100%;z-index:-1;pointer-events:none;opacity:.92}
   a{color:inherit;text-decoration:none}
   ::selection{background:rgba(0,193,106,.28);color:#fff}
   :focus-visible{outline:2px solid var(--grn2);outline-offset:3px;border-radius:6px}
   .wrap{max-width:var(--maxw);margin:0 auto;padding:0 var(--pad)}
-  h1,h2,h3,.display{font-family:'Sora',sans-serif;letter-spacing:-.025em;line-height:1.1}
+  h1,h2,h3,.display{font-family:'Clash Display',system-ui,sans-serif;letter-spacing:-.02em;line-height:1.04;font-weight:600}
   .mono{font-family:'Space Grotesk',monospace}
   .grad{background:linear-gradient(100deg,var(--grn2),var(--grn));-webkit-background-clip:text;background-clip:text;color:transparent}
-  /* assinatura: etiqueta-instrumento com losango verde */
+  .c-rev{color:var(--grn2)} .c-leak{color:var(--leak)}
+  /* barra de progresso de scroll (instrumento) */
+  #prog{position:fixed;top:0;left:0;height:2px;width:0;z-index:60;background:linear-gradient(90deg,var(--grn2),var(--leak));box-shadow:0 0 12px rgba(67,229,154,.6);transition:width .08s linear}
   .eyebrow{display:inline-flex;align-items:center;gap:10px;font-family:'Space Grotesk',monospace;font-size:12px;font-weight:600;letter-spacing:.24em;text-transform:uppercase;color:var(--grn2)}
   .eyebrow::before{content:'';width:7px;height:7px;border-radius:2px;background:var(--grn);transform:rotate(45deg);box-shadow:0 0 12px rgba(0,193,106,.9);flex:none}
+  .eyebrow.leak{color:var(--leak)} .eyebrow.leak::before{background:var(--leak);box-shadow:0 0 12px rgba(255,126,84,.9)}
   .btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;font-weight:600;font-size:15px;padding:14px 22px;border-radius:12px;cursor:pointer;border:1px solid transparent;transition:transform .15s ease,box-shadow .25s ease,background .2s ease,border-color .2s ease;white-space:nowrap}
   .btn-primary{background:linear-gradient(100deg,var(--grn2),var(--grn));color:#04130B;font-weight:700;box-shadow:0 12px 36px -12px rgba(0,193,106,.7)}
   .btn-primary:hover{transform:translateY(-2px);box-shadow:0 18px 50px -12px rgba(0,193,106,.85)}
-  .btn-ghost{background:rgba(255,255,255,.035);color:var(--txt);border-color:var(--line2)}
+  .btn-ghost{background:rgba(255,255,255,.04);color:var(--txt);border-color:var(--line2)}
   .btn-ghost:hover{background:rgba(0,193,106,.08);border-color:var(--grn);transform:translateY(-2px)}
   .btn svg{width:18px;height:18px;flex:none}
-  header.nav{position:sticky;top:0;z-index:50;backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);background:rgba(4,10,18,.72);border-bottom:1px solid var(--line)}
+  header.nav{position:sticky;top:0;z-index:50;backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);background:rgba(5,8,13,.66);border-bottom:1px solid var(--line)}
   .nav-in{display:flex;align-items:center;justify-content:space-between;height:66px}
   .brand{display:flex;align-items:center;gap:11px}
   .brand-sym{width:34px;height:34px;display:block;flex:none}
-  .brand-wm{font-family:'Sora',sans-serif;font-weight:700;font-size:19px;color:var(--txt);line-height:1.05;letter-spacing:-.02em}
+  .brand-wm{font-family:'Clash Display',sans-serif;font-weight:600;font-size:20px;color:var(--txt);line-height:1.05;letter-spacing:-.01em}
   .brand-wm small{display:block;font-family:'Space Grotesk',monospace;font-size:8px;letter-spacing:.22em;color:var(--grn2);font-weight:600;text-transform:uppercase;margin-top:2px}
   .nav-links{display:flex;align-items:center;gap:26px}
   .nav-links a.lnk{font-size:14px;color:var(--mut);font-weight:500;transition:color .15s}
@@ -66,44 +72,59 @@
   .nav-cta{display:flex;align-items:center;gap:12px}
   .burger{display:none;background:none;border:1px solid var(--line2);border-radius:10px;width:42px;height:42px;color:var(--txt);cursor:pointer;align-items:center;justify-content:center}
   .burger svg{width:22px;height:22px}
-  #mobileMenu{display:none;border-bottom:1px solid var(--line);background:rgba(6,16,28,.97);backdrop-filter:blur(14px)}
+  #mobileMenu{display:none;border-bottom:1px solid var(--line);background:rgba(7,13,22,.97);backdrop-filter:blur(14px)}
   #mobileMenu .wrap{display:flex;flex-direction:column;gap:4px;padding-top:12px;padding-bottom:16px}
   #mobileMenu a.lnk{padding:13px 6px;color:var(--mut);font-weight:500;border-bottom:1px solid var(--line)}
-  .hero{padding:clamp(40px,7vw,78px) 0 38px}
-  .hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(34px,5vw,54px);align-items:center}
-  .badge-live{display:inline-flex;align-items:center;gap:8px;background:rgba(0,193,106,.09);border:1px solid rgba(0,193,106,.28);color:var(--grn2);font-size:12px;font-weight:600;padding:7px 13px;border-radius:999px;font-family:'Space Grotesk',monospace;line-height:1.35}
+
+  /* ===== HERO full-bleed (3D atrás) ===== */
+  .hero{position:relative;min-height:clamp(600px,90vh,920px);display:flex;align-items:center;text-align:center;padding:64px 0 48px}
+  .hero::before{content:'';position:absolute;inset:0;z-index:1;pointer-events:none;background:radial-gradient(62% 58% at 50% 46%,rgba(5,8,13,.62),rgba(5,8,13,.12) 60%,transparent 78%)}
+  .hero-inner{position:relative;z-index:2;max-width:900px;margin:0 auto}
+  .badge-live{display:inline-flex;align-items:center;gap:8px;background:rgba(0,193,106,.09);border:1px solid rgba(0,193,106,.28);color:var(--grn2);font-size:12px;font-weight:600;padding:7px 14px;border-radius:999px;font-family:'Space Grotesk',monospace;line-height:1.35}
   .badge-live .pulse{width:8px;height:8px;border-radius:50%;background:var(--grn);box-shadow:0 0 0 0 rgba(0,193,106,.6);animation:pulse 2s infinite;flex:none}
   @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(0,193,106,.55)}70%{box-shadow:0 0 0 9px rgba(0,193,106,0)}100%{box-shadow:0 0 0 0 rgba(0,193,106,0)}}
-  .hero h1{font-size:clamp(33px,5vw,56px);font-weight:800;margin:20px 0 18px;letter-spacing:-.03em}
-  .hero h1 .l2{color:var(--grn2)}
-  .hero p.lead{font-size:clamp(15px,2.2vw,17.5px);color:var(--mut);max-width:560px;margin-bottom:28px}
-  .hero-cta{display:flex;gap:13px;flex-wrap:wrap;margin-bottom:26px}
-  .hero-chips{display:grid;gap:10px}
-  .hero-chips .ch{display:flex;align-items:center;gap:10px;font-size:13.5px;color:var(--mut)}
-  .hero-chips .ch svg{width:16px;height:16px;color:var(--grn);flex:none}
-  .mock{position:relative}
-  .mock .glow{position:absolute;inset:-26px;background:radial-gradient(circle at 60% 38%,rgba(0,193,106,.22),transparent 64%);filter:blur(22px);z-index:0}
-  .shot{display:block;width:100%;height:auto;border-radius:var(--rad);border:1px solid var(--line2);box-shadow:0 40px 90px -42px rgba(0,0,0,.85),0 0 0 1px rgba(0,193,106,.05)}
-  .shot-cap{text-align:center;color:var(--mut2);font-size:12px;margin-top:14px}
-  .strip{border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:20px 0;margin-top:18px;background:rgba(255,255,255,.012)}
+  .hero h1{font-size:clamp(40px,8.2vw,90px);font-weight:600;margin:22px auto 20px;letter-spacing:-.035em;line-height:.98;max-width:14ch}
+  .hero p.lead{font-size:clamp(15.5px,2.3vw,19px);color:var(--mut);max-width:600px;margin:0 auto 30px}
+  .hero-cta{display:flex;gap:13px;flex-wrap:wrap;justify-content:center;margin-bottom:26px}
+  .hero-foot{display:flex;gap:10px 24px;flex-wrap:wrap;justify-content:center;font-size:13px;color:var(--mut2);font-family:'Space Grotesk',monospace}
+  .hero-foot .d{display:inline-flex;align-items:center;gap:8px}
+  .hero-foot .d::before{content:'';width:5px;height:5px;border-radius:1px;background:var(--grn2);transform:rotate(45deg)}
+  .scrollcue{position:absolute;left:50%;bottom:22px;transform:translateX(-50%);z-index:2;display:flex;flex-direction:column;align-items:center;gap:7px;color:var(--mut2);font-family:'Space Grotesk',monospace;font-size:10px;letter-spacing:.2em;text-transform:uppercase}
+  .scrollcue .mouse{width:22px;height:34px;border:1.5px solid var(--line2);border-radius:12px;position:relative}
+  .scrollcue .mouse::after{content:'';position:absolute;top:6px;left:50%;width:3px;height:6px;border-radius:2px;background:var(--grn2);transform:translateX(-50%);animation:cue 1.8s infinite}
+  @keyframes cue{0%{opacity:0;transform:translate(-50%,0)}40%{opacity:1}80%{opacity:0;transform:translate(-50%,10px)}100%{opacity:0}}
+
+  .strip{border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:20px 0;background:rgba(8,14,22,.55);backdrop-filter:blur(6px)}
   .strip-in{display:flex;align-items:center;justify-content:center;gap:12px 36px;flex-wrap:wrap}
   .strip .lab{font-family:'Space Grotesk',monospace;font-size:11.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--mut2)}
-  .strip .it{font-family:'Sora',sans-serif;font-weight:600;font-size:14.5px;color:var(--mut);opacity:.82}
-  section.sec{padding:clamp(52px,9vw,84px) 0}
-  .sec-head{max-width:680px;margin:0 auto clamp(34px,5vw,48px);text-align:center}
+  .strip .it{font-family:'Clash Display',sans-serif;font-weight:600;font-size:15px;color:var(--mut);opacity:.85}
+
+  section.sec{padding:clamp(54px,9vw,92px) 0;position:relative}
+  .sec-head{max-width:720px;margin:0 auto clamp(34px,5vw,48px);text-align:center}
   .sec-head .eyebrow{justify-content:center}
-  .sec-head h2{font-size:clamp(25px,4.2vw,38px);font-weight:700;margin:14px 0 14px}
+  .sec-head h2{font-size:clamp(27px,4.6vw,46px);font-weight:600;margin:14px 0 14px;letter-spacing:-.025em}
   .sec-head p{color:var(--mut);font-size:clamp(15px,2.3vw,16.5px)}
+
+  /* ===== Manifesto / objetivo (substitui o "quem faz") ===== */
+  .manifesto{max-width:880px;margin:0 auto;text-align:center;background:linear-gradient(180deg,rgba(14,27,43,.72),rgba(10,19,32,.72));border:1px solid var(--line2);border-radius:var(--radlg);padding:clamp(34px,6vw,60px) clamp(22px,5vw,52px);backdrop-filter:blur(8px)}
+  .manifesto .eyebrow{justify-content:center}
+  .manifesto h2{font-size:clamp(26px,4.4vw,42px);font-weight:600;margin:16px 0 22px;letter-spacing:-.025em}
+  .manifesto p{color:var(--mut);font-size:clamp(15.5px,2.3vw,17.5px);max-width:680px;margin:0 auto 16px}
+  .manifesto .pull{font-family:'Clash Display',sans-serif;font-weight:500;font-size:clamp(18px,2.8vw,24px);line-height:1.4;color:var(--txt);margin:26px auto 6px;max-width:720px;letter-spacing:-.01em}
+  .manifesto .pull b{color:var(--grn2);font-weight:600}
+  .manifesto .pull .lk{color:var(--leak);font-weight:600}
+
   .prob-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
   .prob{background:linear-gradient(180deg,var(--surface2),var(--surface));border:1px solid var(--line);border-radius:var(--rad);padding:26px;text-align:left;transition:border-color .2s,transform .2s}
-  .prob:hover{border-color:var(--redln);transform:translateY(-3px)}
-  .prob .ic{width:48px;height:48px;border-radius:13px;display:flex;align-items:center;justify-content:center;margin:0 0 14px;background:var(--redbg);border:1px solid var(--redln);color:var(--red)}
+  .prob:hover{border-color:var(--leakln);transform:translateY(-3px)}
+  .prob .ic{width:48px;height:48px;border-radius:13px;display:flex;align-items:center;justify-content:center;margin:0 0 14px;background:var(--leakbg);border:1px solid var(--leakln);color:var(--leak)}
   .prob .ic svg{width:24px;height:24px}
   .prob h3{font-size:17px;font-weight:600;margin-bottom:7px}
   .prob p{color:var(--mut);font-size:14px}
-  .prob .pain{margin-top:14px;display:inline-flex;align-items:center;gap:6px;font-family:'Space Grotesk',monospace;font-size:11px;font-weight:600;color:#ffb1b1;background:var(--redbg);border:1px solid var(--redln);padding:5px 11px;border-radius:8px}
+  .prob .pain{margin-top:14px;display:inline-flex;align-items:center;gap:6px;font-family:'Space Grotesk',monospace;font-size:11px;font-weight:600;color:var(--leak2);background:var(--leakbg);border:1px solid var(--leakln);padding:5px 11px;border-radius:8px}
+
   .impl-stat{display:flex;gap:26px;align-items:center;background:linear-gradient(120deg,rgba(0,193,106,.1),rgba(0,193,106,.02));border:1px solid rgba(0,193,106,.25);border-radius:var(--radlg);padding:28px 30px;margin:30px 0}
-  .impl-stat .big{font-family:'Space Grotesk',monospace;font-size:clamp(48px,9vw,68px);font-weight:700;line-height:1;color:var(--grn2);flex:none}
+  .impl-stat .big{font-family:'Clash Display',sans-serif;font-size:clamp(48px,9vw,72px);font-weight:600;line-height:1;color:var(--grn2);flex:none}
   .impl-stat .lab{font-size:15px;color:var(--mut);line-height:1.6}
   .impl-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
   .impl-point{background:linear-gradient(180deg,var(--surface2),var(--surface));border:1px solid var(--line);border-radius:var(--rad);padding:24px}
@@ -112,6 +133,7 @@
   .impl-point p{color:var(--mut);font-size:14px}
   .impl-closer{margin-top:24px;background:var(--surface2);border:1px solid var(--line2);border-left:3px solid var(--grn);border-radius:0 var(--rad) var(--rad) 0;padding:22px 26px;color:var(--txt);font-size:15.5px;line-height:1.65}
   .impl-closer strong{color:var(--grn2);font-weight:600}
+
   .feat-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
   .feat{background:linear-gradient(180deg,var(--surface2),var(--surface));border:1px solid var(--line);border-radius:var(--rad);padding:26px;transition:transform .2s,border-color .2s}
   .feat:hover{transform:translateY(-4px);border-color:rgba(0,193,106,.4)}
@@ -122,16 +144,20 @@
   .feat .tags{margin-top:14px;display:flex;flex-wrap:wrap;gap:7px}
   .feat .tags span{font-family:'Space Grotesk',monospace;font-size:11px;color:var(--grn2);background:rgba(0,193,106,.08);border:1px solid rgba(0,193,106,.18);padding:3px 9px;border-radius:7px}
   .print-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-top:18px}
-  .band{background:linear-gradient(120deg,rgba(0,193,106,.08),rgba(0,193,106,.02));border:1px solid rgba(0,193,106,.2);border-radius:var(--radlg);padding:clamp(28px,5vw,44px) clamp(20px,4vw,30px)}
+  .shot{display:block;width:100%;height:auto;border-radius:var(--rad);border:1px solid var(--line2);box-shadow:0 40px 90px -42px rgba(0,0,0,.85),0 0 0 1px rgba(0,193,106,.05)}
+  .shot-cap{text-align:center;color:var(--mut2);font-size:12px;margin-top:14px}
+
+  .band{background:linear-gradient(120deg,rgba(0,193,106,.08),rgba(255,126,84,.04));border:1px solid rgba(0,193,106,.2);border-radius:var(--radlg);padding:clamp(28px,5vw,44px) clamp(20px,4vw,30px)}
   .band-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:20px;text-align:center}
   .band-disc{margin:18px auto 0;max-width:780px;text-align:center;color:var(--mut2);font-size:12.5px;line-height:1.55}
-  .band .n{font-family:'Space Grotesk',monospace;font-size:clamp(26px,4vw,42px);font-weight:700;line-height:1}
+  .band .n{font-family:'Clash Display',sans-serif;font-size:clamp(28px,4.4vw,46px);font-weight:600;line-height:1}
   .band .l{color:var(--mut);font-size:13.5px;margin-top:6px;line-height:1.4}
+
   .price-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;align-items:stretch}
   .plan{display:flex;flex-direction:column;background:linear-gradient(180deg,var(--surface2),var(--surface));border:1px solid var(--line);border-radius:var(--rad);padding:30px 26px;position:relative}
   .plan.feat-plan{border:1.5px solid var(--grn);background:linear-gradient(180deg,rgba(0,193,106,.08),var(--surface));box-shadow:0 34px 80px -38px rgba(0,193,106,.55)}
   .plan .tag{position:absolute;top:-13px;left:50%;transform:translateX(-50%);background:linear-gradient(100deg,var(--grn2),var(--grn));color:#03130C;font-family:'Space Grotesk',monospace;font-size:11px;font-weight:700;letter-spacing:.05em;padding:5px 14px;border-radius:999px;white-space:nowrap}
-  .plan .pname{font-family:'Sora',sans-serif;font-weight:600;font-size:17px}
+  .plan .pname{font-family:'Clash Display',sans-serif;font-weight:600;font-size:18px}
   .plan .psub{font-size:12.5px;color:var(--mut2);margin-top:3px;margin-bottom:16px;line-height:1.4}
   .plan .price{display:flex;align-items:baseline;gap:4px}
   .plan .price .cur{font-size:18px;color:var(--mut);font-weight:600}
@@ -144,46 +170,35 @@
   .plan li b{color:var(--txt);font-weight:600}
   .plan .btn{width:100%;margin-top:auto}
   .ent{display:flex;gap:16px;align-items:center;justify-content:space-between;flex-wrap:wrap;background:var(--surface);border:1px solid var(--line2);border-radius:var(--rad);padding:24px 28px;margin-top:18px}
-  .ent h4{font-family:'Sora',sans-serif;font-size:17px;font-weight:600;color:var(--grn2)}
+  .ent h4{font-family:'Clash Display',sans-serif;font-size:18px;font-weight:600;color:var(--grn2)}
   .ent p{color:var(--mut);font-size:13.5px;margin-top:4px;max-width:640px}
   .setup-note{margin-top:20px;background:var(--surface);border:1px solid var(--line);border-radius:var(--rad);padding:18px 22px;color:var(--mut);font-size:14px;line-height:1.6}
   .setup-note b{color:var(--grn2);font-weight:600}
-  .about-grid{display:grid;grid-template-columns:.8fr 1.2fr;gap:clamp(28px,5vw,46px);align-items:center}
-  .about-card{background:linear-gradient(180deg,var(--surface2),var(--surface));border:1px solid var(--line2);border-radius:var(--radlg);padding:32px 28px;text-align:center}
-  .about-mark{width:96px;height:96px;margin:0 auto 18px;border-radius:24px;display:flex;align-items:center;justify-content:center;font-family:'Sora',sans-serif;font-weight:800;font-size:38px;letter-spacing:-.04em;color:#04130B;background:linear-gradient(135deg,var(--grn2),var(--grnd));box-shadow:0 18px 44px -16px rgba(0,193,106,.7)}
-  .about-card .nm{font-family:'Sora',sans-serif;font-weight:700;font-size:20px}
-  .about-card .rl{color:var(--grn2);font-size:12.5px;font-family:'Space Grotesk',monospace;margin-bottom:18px;letter-spacing:.04em}
-  .about-card .socs{display:flex;gap:10px;justify-content:center}
-  .about-card .socs a{width:42px;height:42px;border-radius:11px;border:1px solid var(--line2);display:flex;align-items:center;justify-content:center;color:var(--mut);transition:.15s}
-  .about-card .socs a:hover{color:var(--grn2);border-color:var(--grn);transform:translateY(-2px)}
-  .about-card .socs svg{width:20px;height:20px}
-  .about-txt h2{font-size:clamp(24px,3.4vw,34px);font-weight:700;margin-bottom:16px}
-  .about-txt p{color:var(--mut);font-size:15px;margin-bottom:13px}
-  .about-txt .spec{display:flex;flex-wrap:wrap;gap:9px;margin:18px 0 22px}
-  .about-txt .spec span{font-family:'Space Grotesk',monospace;font-size:12px;color:var(--txt);background:rgba(0,193,106,.08);border:1px solid rgba(0,193,106,.2);padding:6px 12px;border-radius:9px}
-  .final{text-align:center;background:linear-gradient(160deg,rgba(0,193,106,.12),rgba(0,193,106,.02));border:1px solid rgba(0,193,106,.25);border-radius:28px;padding:clamp(44px,7vw,62px) clamp(22px,5vw,30px)}
-  .final h2{font-size:clamp(27px,4.4vw,44px);font-weight:800;margin-bottom:16px}
-  .final p{color:var(--mut);font-size:clamp(15px,2.3vw,17px);max-width:600px;margin:0 auto 30px}
+
+  .final{text-align:center;background:linear-gradient(160deg,rgba(0,193,106,.12),rgba(255,126,84,.05));border:1px solid rgba(0,193,106,.25);border-radius:28px;padding:clamp(44px,7vw,64px) clamp(22px,5vw,30px)}
+  .final h2{font-size:clamp(28px,4.8vw,48px);font-weight:600;margin-bottom:16px;letter-spacing:-.025em}
+  .final p{color:var(--mut);font-size:clamp(15px,2.3vw,17px);max-width:620px;margin:0 auto 30px}
   .final .hero-cta{justify-content:center;margin-bottom:0}
-  footer{border-top:1px solid var(--line);margin-top:76px;padding:42px 0 50px}
+
+  footer{border-top:1px solid var(--line);margin-top:76px;padding:42px 0 50px;background:rgba(5,8,13,.6)}
   .foot-in{display:flex;justify-content:space-between;gap:30px;flex-wrap:wrap;align-items:flex-start}
   .foot-contact{display:flex;flex-direction:column;gap:9px;font-size:14px;color:var(--mut)}
   .foot-contact a{display:flex;align-items:center;gap:10px;transition:color .15s}
   .foot-contact a:hover{color:var(--grn2)}
   .foot-contact svg{width:18px;height:18px;color:var(--grn2);flex:none}
   .foot-copy{font-size:13px;color:var(--mut2)}
+
   .reveal{opacity:0;transform:translateY(22px);transition:opacity .7s ease,transform .7s ease}
   .reveal.in{opacity:1;transform:none}
   @media(prefers-reduced-motion:reduce){
     html{scroll-behavior:auto}
     .reveal{opacity:1;transform:none;transition:none}
-    .badge-live .pulse{animation:none}
-    .btn:hover,.feat:hover,.prob:hover,.about-card .socs a:hover{transform:none}
+    .badge-live .pulse,.scrollcue .mouse::after{animation:none}
+    .btn:hover,.feat:hover,.prob:hover{transform:none}
   }
   @media(max-width:900px){
-    .hero-grid{grid-template-columns:1fr;gap:34px}
-    .mock{max-width:520px;margin:0 auto;width:100%}
-    .about-grid{grid-template-columns:1fr;gap:26px}
+    .hero h1{max-width:18ch}
+    .impl-grid{grid-template-columns:repeat(2,1fr)}
     .band-grid{grid-template-columns:repeat(2,1fr);gap:16px}
   }
   @media(max-width:760px){
@@ -191,83 +206,81 @@
     .nav-cta .btn .nav-lbl{display:none}.nav-cta .btn{padding:11px 13px}
     .prob-grid,.feat-grid,.impl-grid,.print-grid,.price-grid{grid-template-columns:1fr}
     .plan.feat-plan{transform:none}
-    section.sec{padding:56px 0}
+    section.sec{padding:58px 0}
     .impl-stat{flex-direction:column;align-items:flex-start;gap:14px}
     .ent{flex-direction:column;align-items:flex-start}
     .btn{white-space:normal}
+    .hero{min-height:88vh}
     .hero-cta{flex-direction:column;align-items:stretch}
     .hero-cta .btn{width:100%}
-    .ent .btn,.about-txt .btn{width:100%}
-    .mock .glow{display:none}
+    .ent .btn{width:100%}
+    #bg3d{opacity:.78}
   }
   @media(max-width:480px){
     :root{--rad:14px;--radlg:18px}
-    .nav-in{height:60px}.brand-sym{width:30px;height:30px}.brand-wm{font-size:16px}
-    .strip-in{gap:9px 20px}.strip .it{font-size:13px}.strip .lab{width:100%;text-align:center}
-    .prob,.feat,.impl-point,.plan,.about-card{padding:22px}
+    .nav-in{height:60px}.brand-sym{width:30px;height:30px}.brand-wm{font-size:17px}
+    .strip-in{gap:9px 20px}.strip .it{font-size:13.5px}.strip .lab{width:100%;text-align:center}
+    .prob,.feat,.impl-point,.plan{padding:22px}
     .impl-closer,.setup-note,.ent{padding:18px}
     .impl-stat{padding:22px}.impl-stat .big{font-size:46px}
+    .manifesto{padding:28px 20px}
     .band-grid{grid-template-columns:1fr 1fr;gap:16px 12px}
     .band .l{font-size:12px}
-    .about-mark{width:80px;height:80px;font-size:32px;border-radius:20px}
     .foot-in{flex-direction:column;gap:22px}
   }
 </style>
 </head>
 <body>
 
+<div id="prog"></div>
+<canvas id="bg3d" aria-hidden="true"></canvas>
+
 <header class="nav">
   <div class="wrap nav-in">
     <a href="#hero" class="brand" aria-label="DataHub — Revenue Intelligence"><img class="brand-sym" src="assets/datahub-symbol.png" alt="" /><span class="brand-wm">Data<span style="color:var(--grn2)">Hub</span><small>Revenue Intelligence</small></span></a>
     <nav class="nav-links">
+      <a class="lnk" href="#missao">Objetivo</a>
       <a class="lnk" href="#problema">O problema</a>
-      <a class="lnk" href="#implantacao">O segredo</a>
+      <a class="lnk" href="#implantacao">O método</a>
       <a class="lnk" href="#solucao">Recursos</a>
       <a class="lnk" href="#planos">Planos</a>
-      <a class="lnk" href="#sobre">Quem faz</a>
     </nav>
     <div class="nav-cta">
-      <a class="btn btn-primary wa" data-msg="Olá Caio! Quero agendar o diagnóstico gratuito do DataHub pra minha operação." href="https://wa.me/5585988842142">
+      <a class="btn btn-primary wa" data-msg="Olá! Quero o diagnóstico gratuito do DataHub pra minha operação." href="https://wa.me/5585988842142">
         <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M.057 24l1.687-6.163a11.867 11.867 0 01-1.587-5.946C.16 5.335 5.495 0 12.05 0a11.82 11.82 0 018.413 3.488 11.82 11.82 0 013.48 8.414c-.003 6.557-5.338 11.892-11.893 11.892a11.9 11.9 0 01-5.688-1.448L.057 24zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884a9.86 9.86 0 001.51 5.26l-.999 3.648 3.689-.967zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.095 3.2 5.076 4.487.71.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
-        <span class="nav-lbl">Pedir meu diagnóstico</span>
+        <span class="nav-lbl">Pedir diagnóstico</span>
       </a>
     </div>
     <button class="burger" id="burger" aria-label="Abrir menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button>
   </div>
   <div id="mobileMenu"><div class="wrap">
+    <a class="lnk" href="#missao">Objetivo</a>
     <a class="lnk" href="#problema">O problema</a>
-    <a class="lnk" href="#implantacao">O segredo</a>
+    <a class="lnk" href="#implantacao">O método</a>
     <a class="lnk" href="#solucao">Recursos</a>
     <a class="lnk" href="#planos">Planos</a>
-    <a class="lnk" href="#sobre">Quem faz</a>
   </div></div>
 </header>
 
-<section class="hero wrap" id="hero">
-  <div class="hero-grid">
-    <div>
-      <span class="badge-live"><span class="pulse"></span>Implantação feita pelo fundador. Você não configura nada.</span>
-      <h1>Descubra de onde vem sua receita<br><span class="l2">— e por onde ela vaza</span></h1>
-      <p class="lead">Você passa a saber, com número confiável, de onde vem cada real e onde ele está escapando. A gente limpa a base do seu CRM, conecta WhatsApp e tráfego (Meta/Google) e liga um painel ao vivo — você só olha e decide.</p>
-      <div class="hero-cta">
-        <a class="btn btn-primary wa" data-msg="Olá Caio! Quero agendar o diagnóstico gratuito do DataHub pra minha operação." href="https://wa.me/5585988842142">
-          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M.057 24l1.687-6.163a11.867 11.867 0 01-1.587-5.946C.16 5.335 5.495 0 12.05 0a11.82 11.82 0 018.413 3.488 11.82 11.82 0 013.48 8.414c-.003 6.557-5.338 11.892-11.893 11.892a11.9 11.9 0 01-5.688-1.448L.057 24zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884a9.86 9.86 0 001.51 5.26l-.999 3.648 3.689-.967zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.095 3.2 5.076 4.487.71.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
-          Descobrir onde minha operação perde dinheiro
-        </a>
-        <a class="btn btn-ghost wa" data-msg="Olá Caio! Quero ver um exemplo do painel do DataHub." href="https://wa.me/5585988842142">Ver um exemplo do painel</a>
-      </div>
-      <div class="hero-chips">
-        <div class="ch"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg>Implantação e limpeza da base inclusas</div>
-        <div class="ch"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg>Quanto cada canal te dá de retorno, de verdade</div>
-        <div class="ch"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg>CRM + WhatsApp + Meta e Google num lugar só</div>
-        <div class="ch"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg>Feito por especialista, não por você</div>
-      </div>
+<section class="hero" id="hero">
+  <div class="wrap hero-inner">
+    <span class="badge-live"><span class="pulse"></span>Painel ao vivo · implantação feita por especialistas</span>
+    <h1>Descubra de onde <span class="c-rev">vem</span> sua receita<br>— e por onde ela <span class="c-leak">vaza</span></h1>
+    <p class="lead">A gente estrutura e limpa a base do seu CRM, conecta WhatsApp e tráfego (Meta e Google) e liga um painel ao vivo. Você passa a saber, com número confiável, de onde vem cada real — e onde ele está escapando.</p>
+    <div class="hero-cta">
+      <a class="btn btn-primary wa" data-msg="Olá! Quero descobrir onde minha operação está perdendo dinheiro com o DataHub." href="https://wa.me/5585988842142">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M.057 24l1.687-6.163a11.867 11.867 0 01-1.587-5.946C.16 5.335 5.495 0 12.05 0a11.82 11.82 0 018.413 3.488 11.82 11.82 0 013.48 8.414c-.003 6.557-5.338 11.892-11.893 11.892a11.9 11.9 0 01-5.688-1.448L.057 24zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884a9.86 9.86 0 001.51 5.26l-.999 3.648 3.689-.967zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.095 3.2 5.076 4.487.71.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
+        Descobrir onde perco dinheiro
+      </a>
+      <a class="btn btn-ghost wa" data-msg="Olá! Quero ver um exemplo do painel do DataHub." href="https://wa.me/5585988842142">Ver um exemplo do painel</a>
     </div>
-    <div class="mock">
-      <div class="glow"></div>
-      <img class="shot" src="assets/print-visao-geral.png" alt="DataHub — tela de Visão Geral com receita, ROAS, CAC e conversão" style="position:relative;z-index:1" loading="lazy" />
+    <div class="hero-foot">
+      <span class="d">Implantação e limpeza inclusas</span>
+      <span class="d">CRM + WhatsApp + Meta + Google</span>
+      <span class="d">Você não configura nada</span>
     </div>
   </div>
+  <div class="scrollcue" aria-hidden="true"><div class="mouse"></div>role pra ver</div>
 </section>
 
 <div class="strip"><div class="wrap strip-in">
@@ -275,11 +288,21 @@
   <span class="it">DataCrazy</span><span class="it">WhatsApp Business</span><span class="it">Meta Ads</span><span class="it">Google Ads</span><span class="it">Supabase</span>
 </div></div>
 
+<section class="sec wrap" id="missao">
+  <div class="manifesto reveal">
+    <span class="eyebrow">Por que existimos</span>
+    <h2>A maioria das empresas decide no escuro.<br>A gente acende a luz.</h2>
+    <p>A gente entra em operações comerciais — clínicas, prestadores de serviço, times de vendas — pra fazer o trabalho que ninguém quer: abrir o CRM e olhar o dado de verdade. E a cena se repete: dono inteligente, time esforçado, dinheiro entrando — e ninguém sabe dizer com segurança de onde vem a receita nem por onde ela está vazando.</p>
+    <p>Vendo isso de novo e de novo, a gente descobriu uma coisa simples: o problema quase nunca é o painel. É o dado que entra nele.</p>
+    <p class="pull">Painel bonito sobre dado sujo só deixa o gestor <span class="lk">confiante na decisão errada</span>. Por isso a gente arruma a <b>fonte</b> antes de ligar o BI — é o que faz o número virar decisão.</p>
+  </div>
+</section>
+
 <section class="sec wrap" id="problema">
   <div class="sec-head reveal">
-    <span class="eyebrow">O problema</span>
+    <span class="eyebrow leak">O problema</span>
     <h2>Seus dados existem. Só não te dizem nada.</h2>
-    <p>Sua operação gera dados o tempo todo — no CRM, no WhatsApp, no Meta e no Google. Mas eles vivem espalhados, mal preenchidos e sem padrão. Resultado: o gestor abre cinco abas, soma na cabeça e decide no achismo. Quando o mês fecha, ninguém sabe ao certo de onde veio a receita.</p>
+    <p>Sua operação gera dados o tempo todo — no CRM, no WhatsApp, no Meta e no Google. Mas eles vivem espalhados, mal preenchidos e sem padrão. O gestor abre cinco abas, soma na cabeça e decide no achismo. Quando o mês fecha, ninguém sabe ao certo de onde veio a receita.</p>
   </div>
   <div class="prob-grid">
     <div class="prob reveal">
@@ -297,13 +320,13 @@
     <div class="prob reveal">
       <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></div>
       <h3>Não dá pra calcular o custo real</h3>
-      <p>Quanto custa conquistar cada cliente? Qual o custo e o retorno de cada canal? E o WhatsApp, que cobra em dólar por conversa? Hoje a resposta é um chute.</p>
+      <p>Quanto custa conquistar cada cliente? Qual o retorno de cada canal? E o WhatsApp, que cobra em dólar por conversa? Hoje a resposta é um chute.</p>
       <div class="pain">⚠ Custo por cliente desconhecido</div>
     </div>
     <div class="prob reveal">
       <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 9v4M12 17h.01"/><path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/></svg></div>
-      <h3>O painel do CRM é fraco — e o BI genérico falha</h3>
-      <p>O CRM mostra dado cru. Ferramentas de BI genéricas levam semanas para configurar e exigem alguém técnico. E, mesmo assim, falham: se a entrada de dados é uma bagunça, o painel só repete a bagunça.</p>
+      <h3>O BI genérico falha sobre dado sujo</h3>
+      <p>O CRM mostra dado cru. Ferramentas de BI genéricas levam semanas pra configurar e exigem alguém técnico. E, mesmo assim, se a entrada é uma bagunça, o painel só repete a bagunça.</p>
       <div class="pain">⚠ Configura por semanas e não usa</div>
     </div>
   </div>
@@ -311,44 +334,44 @@
 
 <section class="sec wrap" id="implantacao">
   <div class="sec-head reveal">
-    <span class="eyebrow">O segredo da implantação</span>
+    <span class="eyebrow">O método</span>
     <h2>O BI só funciona porque a operação é estruturada <span class="grad">antes</span>.</h2>
-    <p>Esse é o passo que quase nenhum fornecedor de BI entrega — e o motivo de a maior parte dos painéis nunca virar decisão. Antes de plugar qualquer dashboard, nós entramos na sua operação: estruturamos o CRM, organizamos campos e funis e fazemos a padronização e a higienização dos dados de entrada. Não adianta um painel bonito sobre dado sujo. Lixo entra, lixo sai. Por isso a limpeza vem primeiro — e está inclusa no serviço.</p>
+    <p>Esse é o passo que quase nenhum fornecedor de BI entrega — e o motivo de a maior parte dos painéis nunca virar decisão. Antes de plugar qualquer dashboard, a gente entra na operação: estrutura o CRM, organiza campos e funis e faz a padronização e a higienização dos dados de entrada. Lixo entra, lixo sai. Por isso a limpeza vem primeiro — e está inclusa.</p>
   </div>
   <div class="impl-stat reveal">
     <div class="big grad">3x</div>
-    <div class="lab">de ROI médio é o que clientes alcançam quando a base é estruturada e limpa <strong style="color:var(--txt)">antes</strong> do painel. A diferença não está no dashboard — está no dado que entra nele.</div>
+    <div class="lab">de ROI médio é o que a operação alcança quando a base é estruturada e limpa <strong style="color:var(--txt)">antes</strong> do painel. A diferença não está no dashboard — está no dado que entra nele.</div>
   </div>
   <div class="impl-grid">
-    <div class="impl-point reveal"><div class="num">1</div><h3>Engenharia de dados do CRM</h3><p>Estruturamos sua operação comercial no CRM (DataCrazy): campos, funis e etapas desenhados para o seu negócio, não um modelo genérico.</p></div>
+    <div class="impl-point reveal"><div class="num">1</div><h3>Engenharia de dados do CRM</h3><p>A gente estrutura sua operação comercial no CRM (DataCrazy): campos, funis e etapas desenhados pro seu negócio, não um modelo genérico.</p></div>
     <div class="impl-point reveal"><div class="num">2</div><h3>Padronização da entrada</h3><p>Definimos como cada lead entra, como cada origem é marcada e como cada negócio é preenchido. Dado entra padronizado, todo dia, por toda a equipe.</p></div>
-    <div class="impl-point reveal"><div class="num">3</div><h3>Higienização dos dados</h3><p>Limpamos o histórico: duplicatas, tags soltas, origens bagunçadas e campos vazios. Sem isso, você corta a verba do canal errado, paga comissão sobre venda que não fechou e acha que um cliente custou R$ 50 quando custou R$ 200. Dado sujo não é só chato — é caro.</p></div>
-    <div class="impl-point reveal"><div class="num">4</div><h3>Conexão com o DataHub</h3><p>Só depois de tudo limpo e padronizado, conectamos o BI em tempo real. Aí sim cada número vira algo em que você confia a ponto de mover verba e definir meta em cima dele, sem medo de estar errado.</p></div>
+    <div class="impl-point reveal"><div class="num">3</div><h3>Higienização dos dados</h3><p>Limpamos o histórico: duplicatas, tags soltas, origens bagunçadas e campos vazios. Sem isso, você corta a verba do canal errado e acha que um cliente custou R$ 50 quando custou R$ 200.</p></div>
+    <div class="impl-point reveal"><div class="num">4</div><h3>Conexão com o DataHub</h3><p>Só depois de tudo limpo e padronizado, conectamos o BI em tempo real. Aí sim cada número vira algo em que você confia a ponto de mover verba e definir meta em cima dele.</p></div>
   </div>
-  <div class="impl-closer reveal">É por isso que o DataHub <strong>não é um software que você assina e configura sozinho</strong>. É uma solução completa, com engenharia e implantação feitas por nós. Você opera; nós cuidamos da inteligência — e, se o painel não virar decisão, o problema não vira seu.</div>
+  <div class="impl-closer reveal">É por isso que o DataHub <strong>não é um software que você assina e configura sozinho</strong>. É uma solução completa, com engenharia e implantação feitas por nós. Você opera; a gente cuida da inteligência.</div>
 </section>
 
 <section class="sec wrap" id="solucao">
   <div class="sec-head reveal">
     <span class="eyebrow">A solução</span>
     <h2>Um BI em tempo real que mostra de onde vem o dinheiro.</h2>
-    <p>Com a base estruturada e limpa, o DataHub conecta CRM, WhatsApp Business, Meta Ads e Google Ads numa só tela. Os números são em tempo real: quando uma venda fecha, o painel já mostra (cerca de 1 segundo depois). O gestor abre, bate o olho e entende a saúde do negócio em segundos.</p>
+    <p>Com a base estruturada e limpa, o DataHub conecta CRM, WhatsApp Business, Meta Ads e Google Ads numa só tela. Os números são em tempo real: quando uma venda fecha, o painel já mostra. O gestor abre, bate o olho e entende a saúde do negócio em segundos.</p>
   </div>
   <div class="feat-grid">
     <div class="feat reveal"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="9"/><rect x="14" y="3" width="7" height="5"/><rect x="14" y="12" width="7" height="9"/><rect x="3" y="16" width="7" height="5"/></svg></div>
       <h3>Visão geral da receita</h3><p>Receita, pipeline, negócios fechados e ticket médio em cards executivos, cada um comparado com o período anterior. A saúde do negócio em 5 segundos.</p>
       <div class="tags"><span>Receita</span><span>Pipeline</span><span>Ticket médio</span><span>Comparativo</span></div></div>
     <div class="feat reveal"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"/></svg></div>
-      <h3>Custo real do WhatsApp <span style="color:var(--grn2);font-size:11px">· exclusivo</span></h3><p>O WhatsApp Business cobra em dólar, por conversa, em quatro categorias diferentes — e quase ninguém mostra esse custo. O DataHub revela quanto cada cliente vindo do WhatsApp realmente custou e quanto devolveu.</p>
+      <h3>Custo real do WhatsApp <span style="color:var(--grn2);font-size:11px">· exclusivo</span></h3><p>O WhatsApp Business cobra em dólar, por conversa, em quatro categorias diferentes — e quase ninguém mostra esse custo. O DataHub revela quanto cada cliente vindo do WhatsApp custou e quanto devolveu.</p>
       <div class="tags"><span>Custo no WhatsApp</span><span>Retorno</span><span>Custo por conversa</span></div></div>
     <div class="feat reveal"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M2 12h20"/><circle cx="12" cy="12" r="9"/></svg></div>
-      <h3>Retorno por canal</h3><p>Quanto cada canal trouxe de receita, quanto custou e qual o retorno sobre anúncio (ROAS) e o custo por cliente (CAC). Você descobre exatamente onde colocar — e onde cortar — a verba de mídia.</p>
+      <h3>Retorno por canal</h3><p>Quanto cada canal trouxe de receita, quanto custou e qual o retorno sobre anúncio (ROAS) e o custo por cliente (CAC). Você descobre onde colocar — e onde cortar — a verba de mídia.</p>
       <div class="tags"><span>ROI por canal</span><span>ROAS</span><span>CAC</span><span>Atribuição</span></div></div>
     <div class="feat reveal"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg></div>
-      <h3>Performance da equipe</h3><p>Ranking de vendedores com pódio e metas, e cálculo automático de comissão. Transparência para o time e clareza sobre quem está puxando o resultado e quem precisa de apoio.</p>
+      <h3>Performance da equipe</h3><p>Ranking de vendedores com pódio e metas, e cálculo automático de comissão. Transparência pro time e clareza sobre quem está puxando o resultado e quem precisa de apoio.</p>
       <div class="tags"><span>Ranking</span><span>Comissão automática</span><span>Metas</span></div></div>
     <div class="feat reveal"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 3H2l8 9.5V19l4 2v-8.5L22 3z"/></svg></div>
-      <h3>Funil de vendas e gargalos</h3><p>Veja quantos negócios há em cada etapa e o valor em jogo, com destaque automático para a etapa onde você mais perde dinheiro — para agir onde dói.</p>
+      <h3>Funil de vendas e gargalos</h3><p>Veja quantos negócios há em cada etapa e o valor em jogo, com destaque automático pra etapa onde você mais perde dinheiro — pra agir onde dói.</p>
       <div class="tags"><span>Funil visual</span><span>Maior gargalo</span><span>Detalhe por etapa</span></div></div>
     <div class="feat reveal"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3v18h18"/><path d="M18 9l-5 5-3-3-4 4"/></svg></div>
       <h3>Simulador de receita e geografia</h3><p>Projete cenários de faturamento antes de investir e entenda no mapa de onde vêm seus clientes. Decisão estratégica em cima de número, não de achismo.</p>
@@ -363,20 +386,20 @@
 
 <section class="sec wrap">
   <div class="band reveal"><div class="band-grid">
-    <div><div class="n grad">3x</div><div class="l">de retorno entre clientes que arrumam a base antes</div></div>
+    <div><div class="n grad">3x</div><div class="l">de retorno quando a base é arrumada antes</div></div>
     <div><div class="n grad">~60%</div><div class="l">menos tempo montando relatório toda semana</div></div>
     <div><div class="n grad">15+</div><div class="l">métricas de receita e marketing ao vivo</div></div>
     <div><div class="n grad">~1s</div><div class="l">pro painel responder — adeus planilha</div></div>
     <div><div class="n grad">100M+</div><div class="l">dados tratados por mês sem você levantar um dedo</div></div>
   </div>
-  <p class="band-disc">Números do portfólio do fundador e a média entre clientes que arrumam a base antes do painel — potencial, não promessa fixa. No seu diagnóstico a gente mostra, com honestidade, o que é realista pra sua operação.</p></div>
+  <p class="band-disc">Médias entre operações que arrumam a base antes do painel — potencial, não promessa fixa. No seu diagnóstico a gente mostra, com honestidade, o que é realista pra sua operação.</p></div>
 </section>
 
 <section class="sec wrap" id="planos">
   <div class="sec-head reveal">
     <span class="eyebrow">Planos e investimento</span>
     <h2>Preço fixo por empresa. Usuários ilimitados.</h2>
-    <p>Você não paga por vendedor — coloque o time inteiro pelo mesmo valor. Todo plano inclui o BI em tempo real e a estruturação essencial do CRM. O que muda é a profundidade da implantação: quanto maior o compromisso, mais ela entra inclusa — e no anual, a implantação profunda sai de graça.</p>
+    <p>Você não paga por vendedor — coloque o time inteiro pelo mesmo valor. Todo plano inclui o BI em tempo real e a estruturação essencial do CRM. O que muda é a profundidade da implantação — e no anual, a implantação profunda sai de graça.</p>
   </div>
   <div class="price-grid">
     <div class="plan reveal">
@@ -390,7 +413,7 @@
         <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg>Usuários ilimitados</li>
         <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg>Implantação profunda: <b>condição especial</b></li>
       </ul>
-      <a class="btn btn-ghost wa" data-msg="Olá Caio! Tenho interesse no plano Mensal do DataHub. Podemos conversar?" href="https://wa.me/5585988842142">Começar pelo mensal — sem fidelidade</a>
+      <a class="btn btn-ghost wa" data-msg="Olá! Tenho interesse no plano Mensal do DataHub. Podemos conversar?" href="https://wa.me/5585988842142">Começar pelo mensal</a>
     </div>
     <div class="plan feat-plan reveal">
       <span class="tag">MELHOR VALOR</span>
@@ -405,7 +428,7 @@
         <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg>BI em tempo real + usuários ilimitados</li>
         <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg>Prioridade no suporte</li>
       </ul>
-      <a class="btn btn-primary wa" data-msg="Olá Caio! Tenho interesse no plano Anual do DataHub (implantação grátis). Podemos conversar?" href="https://wa.me/5585988842142">Quero o anual com implantação profunda grátis</a>
+      <a class="btn btn-primary wa" data-msg="Olá! Tenho interesse no plano Anual do DataHub (implantação grátis). Podemos conversar?" href="https://wa.me/5585988842142">Quero o anual com implantação grátis</a>
     </div>
     <div class="plan reveal">
       <div class="pname">Semestral</div>
@@ -419,58 +442,27 @@
         <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg>Usuários ilimitados</li>
         <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg>Suporte por WhatsApp</li>
       </ul>
-      <a class="btn btn-ghost wa" data-msg="Olá Caio! Tenho interesse no plano Semestral do DataHub. Podemos conversar?" href="https://wa.me/5585988842142">Falar sobre o semestral</a>
+      <a class="btn btn-ghost wa" data-msg="Olá! Tenho interesse no plano Semestral do DataHub. Podemos conversar?" href="https://wa.me/5585988842142">Falar sobre o semestral</a>
     </div>
   </div>
   <div class="ent reveal">
-    <div><h4>Enterprise sob medida</h4><p>Para operações grandes, múltiplas unidades ou necessidades específicas de integração e governança de dados. Escopo, implantação e SLA desenhados para o seu caso.</p></div>
-    <a class="btn btn-ghost wa" data-msg="Olá Caio! Quero conversar sobre uma proposta Enterprise do DataHub." href="https://wa.me/5585988842142">Montar um plano sob medida</a>
+    <div><h4>Enterprise sob medida</h4><p>Para operações grandes, múltiplas unidades ou necessidades específicas de integração e governança de dados. Escopo, implantação e SLA desenhados pro seu caso.</p></div>
+    <a class="btn btn-ghost wa" data-msg="Olá! Quero conversar sobre uma proposta Enterprise do DataHub." href="https://wa.me/5585988842142">Montar um plano sob medida</a>
   </div>
   <div class="setup-note reveal">A implantação e o setup profundo do CRM — estruturação, padronização e higienização dos dados — entram inclusos nos planos de maior duração e saem <b>de graça no plano anual</b>. Em todos os planos, quem implanta e mantém somos nós: <b>você não configura nada sozinho</b>. Cada plano começa com uma conversa, não com um carrinho.</div>
-</section>
-
-<section class="sec wrap" id="sobre">
-  <div class="about-grid">
-    <div class="about-card reveal">
-      <div class="about-mark" aria-hidden="true">CO</div>
-      <div class="nm">Caio Oliveira</div>
-      <div class="rl">Fundador · DataHub</div>
-      <div class="socs">
-        <a class="wa" data-msg="Olá Caio! Vi sua página do DataHub e quero conversar." href="https://wa.me/5585988842142" aria-label="WhatsApp"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M.057 24l1.687-6.163a11.867 11.867 0 01-1.587-5.946C.16 5.335 5.495 0 12.05 0a11.82 11.82 0 018.413 3.488 11.82 11.82 0 013.48 8.414c-.003 6.557-5.338 11.892-11.893 11.892a11.9 11.9 0 01-5.688-1.448L.057 24zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884a9.86 9.86 0 001.51 5.26l-.999 3.648 3.689-.967z"/></svg></a>
-        <a href="mailto:josecaiocaio746@gmail.com" aria-label="E-mail"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 6L2 7"/></svg></a>
-        <a href="https://github.com/Caio-coder-crypto" target="_blank" rel="noopener" aria-label="GitHub"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12a12 12 0 008.21 11.39c.6.11.82-.26.82-.58v-2c-3.34.73-4.04-1.61-4.04-1.61-.55-1.39-1.34-1.76-1.34-1.76-1.09-.75.08-.73.08-.73 1.2.08 1.84 1.24 1.84 1.24 1.07 1.83 2.81 1.3 3.5.99.11-.78.42-1.3.76-1.6-2.67-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.13-.3-.54-1.52.12-3.18 0 0 1.01-.32 3.3 1.23a11.5 11.5 0 016 0c2.28-1.55 3.29-1.23 3.29-1.23.66 1.66.25 2.88.12 3.18.77.84 1.23 1.91 1.23 3.22 0 4.61-2.8 5.62-5.48 5.92.43.37.81 1.1.81 2.22v3.29c0 .32.22.7.83.58A12 12 0 0024 12c0-6.63-5.37-12-12-12z"/></svg></a>
-        <a href="https://www.linkedin.com/in/caio-oliveira-119992287/" target="_blank" rel="noopener" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.13 1.45-2.13 2.94v5.67H9.35V9h3.42v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 110-4.13 2.06 2.06 0 010 4.13zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z"/></svg></a>
-      </div>
-    </div>
-    <div class="about-txt reveal">
-      <span class="eyebrow">Quem está do outro lado</span>
-      <h2>Cansei de ver empresa boa decidindo no escuro. Por isso criei o DataHub.</h2>
-      <p>Sou o Caio Oliveira. Nos últimos anos entrei em dezenas de operações comerciais — clínicas, empresas de serviço e times de vendas — pra fazer o trabalho que ninguém quer: abrir o CRM e olhar o dado de verdade. E quase sempre era a mesma cena: dono inteligente, time esforçado, dinheiro entrando, e ninguém sabendo dizer com segurança de onde vinha a receita nem por onde ela estava vazando.</p>
-      <p>Descobri rápido que o problema quase nunca era o dashboard. Era o dado de entrada: lead duplicado, etapa preenchida na mão, venda sem origem, comissão no achismo. <b style="color:var(--txt)">Painel bonito em cima de dado sujo só deixa o gestor confiante na decisão errada.</b> Foi aí que parei de só entregar relatório e comecei a arrumar a fonte.</p>
-      <p>O DataHub nasceu dessa virada. Em vez de te vender mais uma ferramenta pra você configurar sozinho no fim de semana, eu faço a implantação: limpo e organizo sua base, conecto seus canais e só então ligo o painel ao vivo. Você recebe a operação enxergando — receita, retorno por canal, custo de aquisição e funil — sem precisar virar analista de dados pra isso.</p>
-      <p>Minha aposta é simples: quando o número é confiável, a decisão melhora sozinha. É isso que eu quero deixar instalado na sua empresa.</p>
-      <div class="spec">
-        <span>Sua base limpa — sem lead duplicado nem venda sem origem</span><span>Painel ao vivo de receita, ROI, ROAS e CAC</span><span>Seus canais falando a mesma língua</span><span>Funil e comissão com número, não achismo</span><span>Atendimento direto comigo, pra realidade de PME</span>
-      </div>
-      <a class="btn btn-primary wa" data-msg="Olá Caio! Quero agendar o diagnóstico gratuito do DataHub." href="https://wa.me/5585988842142">
-        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M.057 24l1.687-6.163a11.867 11.867 0 01-1.587-5.946C.16 5.335 5.495 0 12.05 0a11.82 11.82 0 018.413 3.488 11.82 11.82 0 013.48 8.414c-.003 6.557-5.338 11.892-11.893 11.892a11.9 11.9 0 01-5.688-1.448L.057 24zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884a9.86 9.86 0 001.51 5.26l-.999 3.648 3.689-.967zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.095 3.2 5.076 4.487.71.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
-        Pedir meu raio-x da operação
-      </a>
-    </div>
-  </div>
 </section>
 
 <section class="sec wrap">
   <div class="final reveal">
     <span class="eyebrow">Raio-x da sua operação, sem compromisso</span>
-    <h2 style="margin-top:14px">Vamos olhar sua operação e achar o dinheiro que está escapando</h2>
-    <p>Numa conversa direta comigo a gente revisa como seus dados estão hoje e o que dá pra enxergar de receita e retorno depois da implantação. Mesmo que você não feche, sai sabendo os 3 pontos onde sua base está te custando dinheiro. Sem script de vendas, sem promessa mágica — e se a sua base ainda não estiver pronta, eu te falo antes de você pagar.</p>
+    <h2 style="margin-top:14px">Vamos achar o dinheiro que está escapando</h2>
+    <p>Numa conversa direta a gente revisa como seus dados estão hoje e o que dá pra enxergar de receita e retorno depois da implantação. Mesmo que você não feche, sai sabendo os 3 pontos onde sua base está te custando dinheiro. Sem script de vendas — e se a sua base ainda não estiver pronta, a gente te fala antes de você pagar.</p>
     <div class="hero-cta">
-      <a class="btn btn-primary wa" data-msg="Olá Caio! Quero agendar o diagnóstico gratuito do DataHub pra minha operação." href="https://wa.me/5585988842142">
+      <a class="btn btn-primary wa" data-msg="Olá! Quero agendar o diagnóstico gratuito do DataHub pra minha operação." href="https://wa.me/5585988842142">
         <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M.057 24l1.687-6.163a11.867 11.867 0 01-1.587-5.946C.16 5.335 5.495 0 12.05 0a11.82 11.82 0 018.413 3.488 11.82 11.82 0 013.48 8.414c-.003 6.557-5.338 11.892-11.893 11.892a11.9 11.9 0 01-5.688-1.448L.057 24zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884a9.86 9.86 0 001.51 5.26l-.999 3.648 3.689-.967zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.095 3.2 5.076 4.487.71.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
         Pedir meu raio-x da operação
       </a>
-      <a class="btn btn-ghost wa" data-msg="Olá Caio! Quero falar agora sobre o DataHub." href="https://wa.me/5585988842142">Falar agora no WhatsApp</a>
+      <a class="btn btn-ghost wa" data-msg="Olá! Quero falar agora sobre o DataHub." href="https://wa.me/5585988842142">Falar agora no WhatsApp</a>
     </div>
   </div>
 </section>
@@ -479,22 +471,21 @@
   <div class="wrap foot-in">
     <div>
       <a href="#hero" class="brand" style="margin-bottom:14px"><img class="brand-sym" src="assets/datahub-symbol.png" alt="" /><span class="brand-wm">Data<span style="color:var(--grn2)">Hub</span><small>Revenue Intelligence</small></span></a>
-      <p class="foot-copy" style="max-width:320px;margin-top:6px">Implantação de CRM + BI em tempo real. A gente limpa a base antes de te entregar os números.</p>
+      <p class="foot-copy" style="max-width:330px;margin-top:6px">Implantação de CRM + BI em tempo real. A gente limpa a base antes de te entregar os números.</p>
     </div>
     <div class="foot-contact">
-      <a class="wa" data-msg="Olá Caio! Vi a página do DataHub e quero conversar." href="https://wa.me/5585988842142"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M.057 24l1.687-6.163a11.867 11.867 0 01-1.587-5.946C.16 5.335 5.495 0 12.05 0a11.82 11.82 0 018.413 3.488 11.82 11.82 0 013.48 8.414c-.003 6.557-5.338 11.892-11.893 11.892a11.9 11.9 0 01-5.688-1.448L.057 24zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884a9.86 9.86 0 001.51 5.26l-.999 3.648 3.689-.967z"/></svg>+55 85 98884-2142</a>
-      <a href="mailto:josecaiocaio746@gmail.com"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 6L2 7"/></svg>josecaiocaio746@gmail.com</a>
+      <a class="wa" data-msg="Olá! Vi a página do DataHub e quero conversar." href="https://wa.me/5585988842142"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M.057 24l1.687-6.163a11.867 11.867 0 01-1.587-5.946C.16 5.335 5.495 0 12.05 0a11.82 11.82 0 018.413 3.488 11.82 11.82 0 013.48 8.414c-.003 6.557-5.338 11.892-11.893 11.892a11.9 11.9 0 01-5.688-1.448L.057 24zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884a9.86 9.86 0 001.51 5.26l-.999 3.648 3.689-.967z"/></svg>+55 85 98884-2142</a>
       <a href="https://datahub-delta.vercel.app/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 3h6v6M10 14 21 3M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg>Já é cliente? Acessar a plataforma</a>
     </div>
   </div>
-  <div class="wrap" style="margin-top:30px;padding-top:20px;border-top:1px solid var(--line)"><p class="foot-copy">© <span id="yr"></span> DataHub · Implantação de CRM + Revenue Intelligence · por Caio Oliveira</p></div>
+  <div class="wrap" style="margin-top:30px;padding-top:20px;border-top:1px solid var(--line)"><p class="foot-copy">© <span id="yr"></span> DataHub · Implantação de CRM + Revenue Intelligence</p></div>
 </footer>
 
 <script>
   (function(){
     var WA = '5585988842142';
     document.querySelectorAll('a.wa').forEach(function(a){
-      var msg = a.getAttribute('data-msg') || 'Olá Caio!';
+      var msg = a.getAttribute('data-msg') || 'Olá!';
       a.href = 'https://wa.me/' + WA + '?text=' + encodeURIComponent(msg);
       a.target = '_blank'; a.rel = 'noopener';
     });
@@ -504,7 +495,121 @@
     var yr = document.getElementById('yr'); if(yr) yr.textContent = new Date().getFullYear();
     var io = new IntersectionObserver(function(entries){ entries.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target);} }); }, { threshold:.12 });
     document.querySelectorAll('.reveal').forEach(function(el){ io.observe(el); });
+    // barra de progresso de scroll
+    var prog = document.getElementById('prog');
+    function onScroll(){ var h = document.documentElement.scrollHeight - innerHeight; var p = h>0 ? (scrollY/h) : 0; if(prog) prog.style.width = (p*100).toFixed(2)+'%'; }
+    addEventListener('scroll', onScroll, {passive:true}); onScroll();
   })();
+</script>
+
+<!-- ===== Assinatura: campo de partículas 3D que transforma no scroll (Three.js) ===== -->
+<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js"}}</script>
+<script type="module">
+  import * as THREE from 'three';
+
+  const canvas = document.getElementById('bg3d');
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let renderer = null;
+  try {
+    renderer = new THREE.WebGLRenderer({ canvas, antialias:true, alpha:true, powerPreference:'high-performance' });
+  } catch (e) { renderer = null; }
+
+  if (!renderer) {
+    canvas.style.display = 'none';   // sem WebGL -> gradiente do body assume
+  } else {
+    const isMobile = matchMedia('(max-width:760px)').matches;
+    const N = isMobile ? 2200 : 5200;
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+    renderer.setSize(innerWidth, innerHeight);
+
+    const scene = new THREE.Scene();
+    const cam = new THREE.PerspectiveCamera(55, innerWidth/innerHeight, 0.1, 100);
+    cam.position.set(0, 0, 7);
+
+    // ---- geradores de forma (mesmos N pontos em cada) ----
+    function gauss(){ let u=0,v=0; while(u===0)u=Math.random(); while(v===0)v=Math.random(); return Math.sqrt(-2*Math.log(u))*Math.cos(2*Math.PI*v); }
+    function sphere(n){ const a=new Float32Array(n*3), g=Math.PI*(3-Math.sqrt(5)); for(let i=0;i<n;i++){ const y=1-(i/(n-1))*2, r=Math.sqrt(Math.max(0,1-y*y)), t=g*i; a[i*3]=Math.cos(t)*r*2.5; a[i*3+1]=y*2.5; a[i*3+2]=Math.sin(t)*r*2.5; } return a; }
+    function cloud(n){ const a=new Float32Array(n*3); for(let i=0;i<n;i++){ a[i*3]=gauss()*2.1; a[i*3+1]=gauss()*2.0; a[i*3+2]=gauss()*2.1; } return a; }
+    function grid(n){ const a=new Float32Array(n*3), s=Math.ceil(Math.sqrt(n)); let k=0; for(let i=0;i<s&&k<n;i++)for(let j=0;j<s&&k<n;j++){ const x=(i/(s-1)-.5)*5.2, z=(j/(s-1)-.5)*5.2; a[k*3]=x; a[k*3+1]=Math.sin(x*1.1)*.4+Math.cos(z*1.1)*.4; a[k*3+2]=z; k++; } for(;k<n;k++){ a[k*3]=0; a[k*3+1]=0; a[k*3+2]=0; } return a; }
+    function funnel(n){ const a=new Float32Array(n*3); for(let i=0;i<n;i++){ const t=i/n, y=(0.5-t)*4.2, rad=0.12+(1-t)*1.95, ang=t*Math.PI*18+(i%9); a[i*3]=Math.cos(ang)*rad; a[i*3+1]=y; a[i*3+2]=Math.sin(ang)*rad; } return a; }
+    function ascend(n){ const a=new Float32Array(n*3); for(let i=0;i<n;i++){ const t=i/n, y=(t-.5)*5.4, rad=0.35+(1-t)*0.5, ang=t*Math.PI*12; a[i*3]=Math.cos(ang)*rad; a[i*3+1]=y; a[i*3+2]=Math.sin(ang)*rad; } return a; }
+
+    const shapes = [ sphere(N), cloud(N), grid(N), funnel(N), ascend(N) ];
+    const live = sphere(N).slice();
+
+    const geo = new THREE.BufferGeometry();
+    geo.setAttribute('position', new THREE.BufferAttribute(live, 3));
+    const seed = new Float32Array(N); for(let i=0;i<N;i++) seed[i]=Math.random();
+    geo.setAttribute('aSeed', new THREE.BufferAttribute(seed, 1));
+
+    const mat = new THREE.ShaderMaterial({
+      transparent:true, depthWrite:false, blending:THREE.AdditiveBlending,
+      uniforms:{
+        uColorA:{ value:new THREE.Color('#43E59A') },  // receita
+        uColorB:{ value:new THREE.Color('#FF7E54') },  // vazamento
+        uMix:{ value:0 }, uTime:{ value:0 },
+        uSize:{ value: isMobile ? 2.2 : 2.7 }, uDpr:{ value: Math.min(window.devicePixelRatio||1,2) }
+      },
+      vertexShader:`attribute float aSeed; uniform float uSize,uDpr,uTime; varying float vS;
+        void main(){ vS=aSeed; vec4 mv=modelViewMatrix*vec4(position,1.0);
+          float tw=0.65+0.35*sin(uTime*1.6+aSeed*6.2831);
+          gl_PointSize=uSize*uDpr*tw*(30.0/max(0.1,-mv.z));
+          gl_Position=projectionMatrix*mv; }`,
+      fragmentShader:`precision mediump float; uniform vec3 uColorA,uColorB; uniform float uMix; varying float vS;
+        void main(){ vec2 c=gl_PointCoord-0.5; float d=length(c); if(d>0.5) discard;
+          float a=smoothstep(0.5,0.0,d); vec3 col=mix(uColorA,uColorB,clamp(uMix*(0.55+0.45*vS),0.0,1.0));
+          gl_FragColor=vec4(col, a*0.9); }`
+    });
+
+    const points = new THREE.Points(geo, mat);
+    scene.add(points);
+
+    // ---- scroll -> alvo ----
+    let target = 0;
+    function setTarget(){ const h=document.documentElement.scrollHeight-innerHeight; target = h>0 ? Math.min(1,Math.max(0,scrollY/h)) : 0; }
+    addEventListener('scroll', setTarget, {passive:true}); setTarget();
+
+    // parallax leve do ponteiro (só desktop)
+    let px=0, py=0;
+    if(!isMobile){ addEventListener('pointermove', function(e){ px=(e.clientX/innerWidth-.5); py=(e.clientY/innerHeight-.5); }, {passive:true}); }
+
+    function morph(p){
+      const seg = p*(shapes.length-1);
+      const i = Math.min(shapes.length-2, Math.floor(seg));
+      const f = seg - i, A = shapes[i], B = shapes[i+1];
+      for(let k=0;k<N*3;k++) live[k] = A[k] + (B[k]-A[k])*f;
+      geo.attributes.position.needsUpdate = true;
+      // coral perto da forma "nuvem" (índice 1 = o problema)
+      mat.uniforms.uMix.value = Math.max(0, 1 - Math.abs(seg-1));
+    }
+
+    function resize(){ renderer.setSize(innerWidth, innerHeight); cam.aspect=innerWidth/innerHeight; cam.updateProjectionMatrix(); }
+    addEventListener('resize', resize);
+
+    if (reduce) {
+      // movimento reduzido: uma forma estática, sem loop
+      morph(0); points.rotation.y = .5; renderer.render(scene, cam);
+    } else {
+      let cur = 0, raf = 0;
+      function frame(t){
+        cur += (target - cur) * 0.06;
+        morph(cur);
+        mat.uniforms.uTime.value = t * 0.001;
+        cam.position.x += (px*0.8 - cam.position.x) * 0.05;
+        cam.position.y += (-py*0.6 - cam.position.y) * 0.05;
+        cam.lookAt(0,0,0);
+        points.rotation.y = t*0.00006 + cur*1.1;
+        points.rotation.x = Math.sin(cur*3.1416)*0.16;
+        renderer.render(scene, cam);
+        raf = requestAnimationFrame(frame);
+      }
+      raf = requestAnimationFrame(frame);
+      document.addEventListener('visibilitychange', function(){
+        if(document.hidden){ cancelAnimationFrame(raf); }
+        else { raf = requestAnimationFrame(frame); }
+      });
+    }
+  }
 </script>
 </body>
 </html>
